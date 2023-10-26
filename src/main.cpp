@@ -35,10 +35,16 @@ int main()
     {
         UpdateMusicStream(game.music);
         game.HandeleInput();
-        if(EventTriggered(0.2)) //si el evento se activa cada 0.2 segundos
+    
+        if(!game.pause)
         {
-            game.MoveBlockDown();
+            if(EventTriggered(0.2)) //si el evento se activa cada 0.2 segundos
+            {
+                game.MoveBlockDown();
+            }
+            
         }
+        
         
         BeginDrawing(); //crea lienzo en blanco donde podemos dibujar objetos
         ClearBackground(darkBlue);
@@ -49,6 +55,11 @@ int main()
             DrawTextEx(font,"KGASTE PAPU", {320,450},38,2,WHITE);
         }
         DrawRectangleRounded({320, 55, 250, 60}, 0.3, 6, lightBlue);
+        if(game.pause)
+        {
+            DrawTextEx(font,"PAUSA", {320,450},38,2,WHITE);
+        }
+        
 
         char scoreText[10];
         sprintf(scoreText, "%d", game.score);

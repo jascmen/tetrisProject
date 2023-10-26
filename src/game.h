@@ -13,7 +13,8 @@ class Game
          bool gameOver;
         int score;
         Music music;
-        
+        //nuevo
+        bool pause;
         
 
      private:

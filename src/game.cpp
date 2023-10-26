@@ -17,6 +17,7 @@ Game::Game()
     PlayMusicStream(music);//reproduce la musica
     rotateSound = LoadSound("Sounds/rotate.mp3");
     clearSound = LoadSound("Sounds/clear.mp3");
+    pause = false;
 }
 
 Game::~Game()
@@ -89,6 +90,10 @@ void Game::Draw()
 void Game::HandeleInput()
 {
     int keyPressed = GetKeyPressed(); // Obtiene la tecla presionada
+    if (IsKeyPressed(KEY_P))
+    {
+        pause = !pause;
+    }
 
     if (gameOver && keyPressed != 0)
     {
@@ -101,22 +106,25 @@ void Game::HandeleInput()
     static bool prevGamepadDownState = false;
     static bool prevGamepadUpState = false;
 
-    // Check for keyboard input
-    switch (keyPressed)
+    if (!pause)
     {
-        case KEY_LEFT:
-            MoveBlockLeft();
-            break;
-        case KEY_RIGHT:
-            MoveBlockRight();
-            break;
-        case KEY_DOWN:
-            MoveBlockDown();
-            UpdateScore(0, 1);
-            break;
-        case KEY_UP:
-            RotateBlock();
-            break;
+        // Check for keyboard input
+        switch (keyPressed)
+        {
+            case KEY_LEFT:
+                MoveBlockLeft();
+                break;
+            case KEY_RIGHT:
+                MoveBlockRight();
+                break;
+            case KEY_DOWN:
+                MoveBlockDown();
+                UpdateScore(0, 1);
+                break;
+            case KEY_UP:
+                RotateBlock();
+                break;
+        }
     }
     // Check for gamepad input
     if (IsGamepadAvailable(0))
